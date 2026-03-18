@@ -34,32 +34,16 @@ body {
     margin-bottom: 30px;
 }
 
-.input-box input {
-    width: 80%;
-    padding: 12px;
-    font-size: 16px;
-}
-
-.input-box button {
-    margin-top: 15px;
-    padding: 12px 25px;
-    background: #f42a41;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* CARD */
+/* CARD (AUTO SHOW) */
 .card {
-    display: none;
+    display: block; /* changed এখানে */
     background: white;
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-/* HEADER IMAGE */
+/* IMAGE */
 .header-img {
     width: 100%;
     border-radius: 10px;
@@ -102,6 +86,7 @@ body {
 
 <div class="wrapper">
 
+<!-- INPUT BOX -->
 <div class="input-box" id="inputBox">
     <h2>আপনার নাম লিখুন</h2>
     <input type="text" id="username" placeholder="আপনার নাম লিখুন">
@@ -109,22 +94,21 @@ body {
     <button onclick="generateCard()">আমন্ত্রণপত্র দেখুন</button>
 </div>
 
+<!-- CARD -->
 <div class="card" id="card">
 
-<!-- FRONT IMAGE -->
+<!-- IMAGE -->
 <img src="abc.png" class="header-img" alt="স্বাধীনতা দিবস">
 
 <h2>২৬শে মার্চ — স্বাধীনতা ও জাতীয় দিবস ২০২৬</h2>
 
-<p>সুধী <span class="name" id="showName"></span>,</p>
+<p>সুধী <span class="name" id="showName">আপনি</span>,</p>
 
-<p>২৬ শে মার্চ মহান স্বাধীনতা ও জাতীয় দিবস বাঙ্গালী জাতির জীবনে এক অবিস্মরণীয় দিন। ১৯৭১ সালের এ দিনে মুক্তিকামী জনতা পাক হানাদার বাহিনীর বিরুদ্ধে সশস্ত্র লড়াইয়ের মাধ্যমে গৌরবোজ্জ্বল স্বাধীনতা সংগ্রামের সূচনা করে। পরাধীনতার শৃঙ্খল ভেঙ্গে বিশ্বের মানচিত্রে অভ্যুদয় ঘটে বাংলাদেশ নামক স্বাধীন সার্বভৌম রাষ্ট্রের।</p>
+<p>২৬ শে মার্চ মহান স্বাধীনতা ও জাতীয় দিবস বাঙ্গালী জাতির জীবনে এক অবিস্মরণীয় দিন। ১৯৭১ সালের এ দিনে মুক্তিকামী জনতা পাক হানাদার বাহিনীর বিরুদ্ধে সশস্ত্র লড়াইয়ের মাধ্যমে গৌরবোজ্জ্বল স্বাধীনতা সংগ্রামের সূচনা করে।</p>
 
-<p>লাখো শহীদের রক্তঋণ, মা-বোনের চূড়ান্ত আত্মত্যাগ আর বীর মুক্তিযোদ্ধার বলিষ্ঠ মুখ সোনার বাংলা বিনির্মাণে আমাদের প্রেরণার উৎস হয়ে রয়েছে। মহান স্বাধীনতা ও জাতীয় দিবস ২০২৬ এর প্রাক্কালে সকল বীর মুক্তিযোদ্ধাকে সশ্রদ্ধ অভিবাদন জানাচ্ছি এবং সেই সাথে সকল শহীদ মুক্তিযোদ্ধাদের বিদেহী আত্মার মাগফেরাত/শান্তি কামনা করছি।</p>
+<p>লাখো শহীদের রক্তঋণ, মা-বোনের আত্মত্যাগ এবং বীর মুক্তিযোদ্ধাদের সাহস আমাদের অনুপ্রেরণা।</p>
 
-<p>আজকের এই দিনে স্বাধীনতা দিবসের ইতিহাস ও তাৎপর্যকে ধারণ ও লালন করে উপজেলা প্রশাসন, কালীগঞ্জ, গাজীপুর কর্তৃক জাতীয় কর্মসূচির আলোকে দিনব্যাপী নানা কর্মসূচির আয়োজন করা হয়েছে।</p>
-
-<p>উপজেলা প্রশাসন, কালীগঞ্জ, গাজীপুর কর্তৃক আয়োজিত মহান স্বাধীনতা ও জাতীয় দিবস ২০২৬ এর দিনব্যাপী কর্মসূচিতে আপনি সবান্ধব আমন্ত্রিত।</p>
+<p>উপজেলা প্রশাসন, কালীগঞ্জ, গাজীপুর কর্তৃক দিনব্যাপী কর্মসূচিতে আপনি আমন্ত্রিত।</p>
 
 <br>
 
@@ -147,8 +131,6 @@ function generateCard(){
     let name = document.getElementById("username").value.trim();
     if(name==""){ alert("নাম লিখুন"); return; }
 
-    document.getElementById("inputBox").style.display = "none";
-
     let url = window.location.origin + window.location.pathname + "?name=" + encodeURIComponent(name);
     window.history.pushState({}, '', url);
     showCard(name);
@@ -156,20 +138,25 @@ function generateCard(){
 
 function showCard(name){
     document.getElementById("showName").innerText = name;
-    document.getElementById("card").style.display = "block";
-
-    document.getElementById("wa").href = "https://wa.me/?text=" + encodeURIComponent("আপনাকে আমন্ত্রণ জানানো হলো: " + window.location.href);
-    document.getElementById("fb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href);
 }
 
+// SHARE LINK
+document.getElementById("wa").href =
+"https://wa.me/?text=" + encodeURIComponent("আমন্ত্রণ দেখুন: " + window.location.href);
+
+document.getElementById("fb").href =
+"https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href);
+
+// COPY
 function copyLink(){
     navigator.clipboard.writeText(window.location.href);
     alert("লিঙ্ক কপি হয়েছে!");
 }
 
+// AUTO LOAD NAME FROM URL
 let params = new URLSearchParams(window.location.search);
 if(params.get("name")){
-    document.getElementById("inputBox").style.display = "none";
+    document.getElementById("inputBox").style.display = "none;
     showCard(params.get("name"));
 }
 </script>
